@@ -9,6 +9,15 @@ import (
 	"gorm.io/gorm"
 )
 
+// CategoryServiceInterface mendefinisikan kontrak untuk CategoryService
+type CategoryServiceInterface interface {
+	Create(input categoryModel.CreateCategoryInput, user *userModel.User) (*categoryModel.Category, error)
+	GetAll() ([]categoryModel.Category, error)
+	GetByID(id uint) (*categoryModel.Category, error)
+	Update(id uint, input categoryModel.CreateCategoryInput, user *userModel.User) (*categoryModel.Category, error)
+	Delete(id uint, user *userModel.User) error
+}
+
 type CategoryService struct {
 	db *gorm.DB
 }

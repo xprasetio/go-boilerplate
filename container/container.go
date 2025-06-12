@@ -75,7 +75,7 @@ func NewContainer() (di.Container, error) {
 		{
 			Name: CategoryHandlerDefName,
 			Build: func(ctn di.Container) (interface{}, error) {
-				categoryService := ctn.Get(CategoryServiceDefName).(*category.CategoryService)
+				categoryService := ctn.Get(CategoryServiceDefName).(category.CategoryServiceInterface)
 				return category.NewCategoryHandler(categoryService), nil
 			},
 		},
