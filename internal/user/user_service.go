@@ -16,6 +16,18 @@ import (
 	"gorm.io/gorm"
 )
 
+// UserServiceInterface mendefinisikan kontrak untuk UserService
+type UserServiceInterface interface {
+	Register(input model.RegisterInput) (*model.User, error)
+	Login(input model.LoginInput) (string, error)
+	GetUserByID(userID uint) (*model.User, error)
+	GetStoredToken(ctx context.Context, userID uint) (string, error)
+	Logout(userID uint) error
+	UpdateProfile(userID uint, input model.UpdateProfileInput) (*model.User, error)
+	DeleteAccount(userID uint) error
+	GetAllUsers() ([]model.User, error)
+}
+
 type UserService struct {
 	db          *gorm.DB
 	jwtSecret   string

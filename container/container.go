@@ -68,7 +68,7 @@ func NewContainer() (di.Container, error) {
 		{
 			Name: UserHandlerDefName,
 			Build: func(ctn di.Container) (interface{}, error) {
-				userService := ctn.Get(UserServiceDefName).(*user.UserService)
+				userService := ctn.Get(UserServiceDefName).(user.UserServiceInterface)
 				return user.NewUserHandler(userService), nil
 			},
 		},
@@ -83,7 +83,7 @@ func NewContainer() (di.Container, error) {
 			Name: AuthMiddlewareDefName,
 			Build: func(ctn di.Container) (interface{}, error) {
 				cfg := ctn.Get(ConfigDefName).(config.Config)
-				userService := ctn.Get(UserServiceDefName).(*user.UserService)
+				userService := ctn.Get(UserServiceDefName).(user.UserServiceInterface)
 				return middleware.AuthMiddleware(userService, cfg.JWTSecret), nil
 			},
 		},
